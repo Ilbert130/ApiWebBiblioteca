@@ -11,5 +11,6 @@ namespace ApiWebPrimera
 
         //De esta manera creamos una tabla de manera automatica en la base de datos sql
         public DbSet<Autor> Autores { get; set; }
+        public DbSet<Libro> Libros { get; set; }
     }
 }
