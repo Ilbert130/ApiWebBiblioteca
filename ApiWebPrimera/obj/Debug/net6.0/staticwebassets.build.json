@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "0s/gVnYPgOs3ApwKxXv5KhLVoYcS5UxZgESge9nbYzg=",
+  "Hash": "JABTQJYuKwNK1fZr7333++7UX5E7O5rluLmeJLDaDo4=",
   "Source": "ApiWebPrimera",
   "BasePath": "_content/ApiWebPrimera",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "ApiWebPrimera\\wwwroot",
+      "Source": "ApiWebPrimera",
+      "ContentRoot": "D:\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\wwwroot\\",
+      "BasePath": "_content/ApiWebPrimera",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\wwwroot\\ArchivoP.txt",
+      "SourceId": "ApiWebPrimera",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\wwwroot\\",
+      "BasePath": "_content/ApiWebPrimera",
+      "RelativePath": "ArchivoP.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\ArchivoP.txt"
+    }
+  ]
 }

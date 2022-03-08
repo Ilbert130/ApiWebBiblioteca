@@ -1,5 +1,6 @@
 using ApiWebPrimera;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +10,9 @@ startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-startup.Configure(app, app.Environment);
+var servicioLogger = (ILogger<Startup>)app.Services.GetService(typeof(ILogger<Startup>));
+
+startup.Configure(app, app.Environment, servicioLogger);
 
 app.Run();
 

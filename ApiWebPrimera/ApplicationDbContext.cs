@@ -9,8 +9,20 @@ namespace ApiWebPrimera
         {
         }
 
+        //Con este metod creamos una llave compuesta para la relacion muchos a muchos
+        //La tabla AutorLibro
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //Definimos que composicion sera la llave primaria de AutorLibro
+            modelBuilder.Entity<AutorLibro>().HasKey(al => new { al.AutorId, al.LibroId });
+        }
+
         //De esta manera creamos una tabla de manera automatica en la base de datos sql
         public DbSet<Autor> Autores { get; set; }
         public DbSet<Libro> Libros { get; set; }
+        public DbSet<Comentario> Comentarios { get; set; }
+        public DbSet<AutorLibro> AutoresLibros { get; set;}
     }
 }
