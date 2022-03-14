@@ -23,7 +23,27 @@ namespace ApiWebPrimera.Utilidades
             CreateMap<ComentarioCreacionDTO, Comentario>();
             CreateMap<Comentario,ComentarioDTO>();
         }
-        
+
+        private List<AutorLibro> MapAutoresLibros(LibroCreacionDTO libroCreacionDTO, Libro libro)
+        {
+            var resultado = new List<AutorLibro>();
+
+            if (libroCreacionDTO.AutoresIds == null)
+            {
+                return resultado;
+            }
+
+            //No tenemos que agregar el valor del LibroId porque 
+            //Entity framework lo hace por nosotros
+            foreach (var autorId in libroCreacionDTO.AutoresIds)
+            {
+                //No agrega el id del libro por que este se agrega de manera automatica
+                resultado.Add(new AutorLibro() { AutorId = autorId });
+            }
+
+            return resultado;
+        }
+
         private List<LibroDevolverDTO> MapAutoresLibrosM(Autor autor, AutorDevolverDTO autorDevolverDTO)
         {
             var resultado = new List<LibroDevolverDTO>();
@@ -58,23 +78,6 @@ namespace ApiWebPrimera.Utilidades
             return resultado;
         }
 
-        private List<AutorLibro> MapAutoresLibros(LibroCreacionDTO libroCreacionDTO, Libro libro)
-        {
-            var resultado = new List<AutorLibro>();
-
-            if(libroCreacionDTO.AutoresIds == null)
-            {
-                return resultado;
-            }
-
-            //No tenemos que agregar el valor del LibroId porque 
-            //Entity framework lo hace por nosotros
-            foreach(var autorId in libroCreacionDTO.AutoresIds)
-            {
-                resultado.Add(new AutorLibro() { AutorId = autorId });
-            }
-
-            return resultado;
-        }
+        
     }
 }

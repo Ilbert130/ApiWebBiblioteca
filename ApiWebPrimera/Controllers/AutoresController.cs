@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace ApiWebPrimera.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
+        private readonly IConfiguration configuration;
 
         //private readonly IServices services;
         //private readonly ServicioTransient servicioTransient;
@@ -27,11 +29,12 @@ namespace ApiWebPrimera.Controllers
         //private readonly ServicioSingleton servicioSingleton;
         //private readonly ILogger<AutoresController> logger;
 
-        public AutoresController(ApplicationDbContext context, IMapper mapper/*, IServices services, ServicioTransient servicioTransient
+        public AutoresController(ApplicationDbContext context, IMapper mapper, IConfiguration configuration/*, IServices services, ServicioTransient servicioTransient
             ,ServicioScoped servicioScoped, ServicioSingleton servicioSingleton, ILogger<AutoresController> logger*/)
         {
             this.context = context;
             this.mapper = mapper;
+            this.configuration = configuration;
             //this.services = services;
             //this.servicioTransient = servicioTransient;
             //this.servicioScoped = servicioScoped;
@@ -56,6 +59,11 @@ namespace ApiWebPrimera.Controllers
         //    });
         //}
 
+        [HttpGet("configuraciones")]
+        public ActionResult<string> GetConfiguracion()
+        {
+            return configuration["ConnectionStrings:defaultConnection"];
+        }
 
         //[HttpGet]
         [HttpGet("listado")] // api/autores/listado
@@ -70,7 +78,7 @@ namespace ApiWebPrimera.Controllers
         
         }
 
-        [HttpGet("ilbert/{id}")]
+        [HttpGet("ilbert/{id}",Name = "obtenerAutor")]
         public async Task<ActionResult<AutorDevolverDTONull>> ObtenerAutor(int id)
         {
             var autor = await context.Autores
@@ -144,16 +152,15 @@ namespace ApiWebPrimera.Controllers
 
             context.Add(autor);
             await context.SaveChangesAsync();
-            return Ok();
+
+            var autorDTO = mapper.Map<AutorDevolverDTO>(autor);
+
+            return CreatedAtRoute("obtenerAutor",new {id = autor.Id}, autorDTO);
         }
 
         [HttpPut("{id:int}")] // api/autores/1
-        public async Task<ActionResult> Put([FromBody]Autor autor, int id)
+        public async Task<ActionResult> Put([FromBody]AutorCreacionDTO autorCreacionDTO, int id)
         {
-            if(autor.Id != id)
-            {
-                return BadRequest("El id del autor no coincide con el de la url");
-            }
 
             var existe = await context.Autores.AnyAsync(x => x.Id == id);
 
@@ -162,9 +169,11 @@ namespace ApiWebPrimera.Controllers
                 return NotFound();
             }
 
+            var autor = mapper.Map<Autor>(autorCreacionDTO);
+            autor.Id = id;
             context.Update(autor);
             await context.SaveChangesAsync();
-            return Ok();
+            return NoContent(); //204 
         }
 
         [HttpDelete("{id:int}")] // api/autores/1

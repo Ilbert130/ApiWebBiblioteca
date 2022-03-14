@@ -33,13 +33,15 @@ namespace ApiWebPrimera.Controllers
             return mapper.Map<List<LibroDevolverDTO>>(libro);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name ="obtenerLibro")]
         public async Task<ActionResult<LibroDevolverDTONull>> Get(int id)
         {
             var libro = await context.Libros
                 .Include(l => l.AutoresLibros)
                 .ThenInclude(al => al.Autor)
                 .FirstOrDefaultAsync(l => l.Id == id);
+            libro.AutoresLibros =  libro.AutoresLibros.OrderBy(l => l.Orden).ToList();
+
             return mapper.Map<LibroDevolverDTONull>(libro);
         }
 
@@ -65,6 +67,39 @@ namespace ApiWebPrimera.Controllers
 
             var libro = mapper.Map<Libro>(libroDTO);
 
+            AsignarOrdenAutores(libro);
+
+            context.Add(libro);
+            await context.SaveChangesAsync();
+
+            var dtoLibro = mapper.Map<LibroDevolverDTO>(libro);
+
+            return CreatedAtRoute("obtenerLibro", new { Id = libro.Id }, dtoLibro); //Asi estamos devolviendo la ruta del recurso creado
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, LibroCreacionDTO libroCreacionDTO)
+        {
+            var libro = await context.Libros
+                .Include(x => x.AutoresLibros)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if(libro == null)
+            {
+                return NotFound();
+            }
+
+
+            libro = mapper.Map(libroCreacionDTO, libro);
+
+            AsignarOrdenAutores(libro);
+
+            await context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        private void AsignarOrdenAutores(Libro libro)
+        {
             if (libro.AutoresLibros != null)
             {
                 for (int i = 0; i < libro.AutoresLibros.Count; i++)
@@ -72,10 +107,6 @@ namespace ApiWebPrimera.Controllers
                     libro.AutoresLibros[i].Orden = i;
                 }
             }
-
-            context.Add(libro);
-            await context.SaveChangesAsync();
-            return Ok();
         }
     }
 }

@@ -37,6 +37,22 @@ namespace ApiWebPrimera.Controllers
             return mapper.Map<List<ComentarioDTO>>(comentarios);
         }
 
+        [HttpGet("{idComentario:int}", Name = "obtenerComentario")]
+        public async Task<ActionResult<ComentarioDTO>> Get(int id)
+        {
+            var existe = await context.Comentarios.AnyAsync(c => c.Id == id);
+
+            if (!existe)
+            {
+                return BadRequest("El id del comentario ingresado no existe");
+
+            }
+
+            var comentario = await context.Comentarios.FirstOrDefaultAsync(c => c.Id == id);
+            return mapper.Map<ComentarioDTO>(comentario);
+        }
+
+
         [HttpPost]
         public async Task<ActionResult> Post(int libroId, ComentarioCreacionDTO comentarioCreacionDTO)
         {
@@ -51,7 +67,12 @@ namespace ApiWebPrimera.Controllers
             comentario.LibroId = libroId;
             context.Add(comentario);
             await context.SaveChangesAsync();
-            return Ok();
+
+            var dtoComentario = mapper.Map<ComentarioDTO>(comentario);
+
+            //Aqui a esta ruta se le pasa el libro id y el id del comentario, por eso en la funcion anonima 
+            //se pasan dos propiedades.
+            return CreatedAtRoute("obtenerComentario",new {Id = comentario.Id, LiblroId = libroId},dtoComentario);
         }
     }
 }

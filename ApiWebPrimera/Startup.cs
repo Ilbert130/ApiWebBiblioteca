@@ -117,9 +117,11 @@ namespace ApiWebPrimera
             //De lo contrario se ejecutaran estos
             if (env.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 
