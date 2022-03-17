@@ -1,9 +1,10 @@
 ﻿using ApiWebPrimera.Controllers.Entidades;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiWebPrimera
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -11,6 +12,7 @@ namespace ApiWebPrimera
 
         //Con este metod creamos una llave compuesta para la relacion muchos a muchos
         //La tabla AutorLibro
+        //Es necesario mantener la referencia al continido base de este metodo
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

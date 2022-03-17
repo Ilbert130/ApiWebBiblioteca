@@ -3,6 +3,7 @@ using ApiWebPrimera.DTOs;
 using ApiWebPrimera.Filtros;
 using ApiWebPrimera.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -59,15 +60,15 @@ namespace ApiWebPrimera.Controllers
         //    });
         //}
 
-        [HttpGet("configuraciones")]
-        public ActionResult<string> GetConfiguracion()
-        {
-            return configuration["ConnectionStrings:defaultConnection"];
-        }
+        //[HttpGet("configuraciones")]
+        //public ActionResult<string> GetConfiguracion()
+        //{
+        //    return configuration["ConnectionStrings:defaultConnection"];
+        //}
 
         //[HttpGet]
         [HttpGet("listado")] // api/autores/listado
-        //[Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<List<AutorDevolverDTO>>> Get()
         {
             //throw new NotImplementedException();

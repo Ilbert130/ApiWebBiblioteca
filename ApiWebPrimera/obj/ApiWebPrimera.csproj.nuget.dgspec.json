@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\ApiWebPrimera.csproj": {}
+    "C:\\Users\\Ilbert Castillo\\Documents\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\ApiWebPrimera.csproj": {}
   },
   "projects": {
-    "D:\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\ApiWebPrimera.csproj": {
+    "C:\\Users\\Ilbert Castillo\\Documents\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\ApiWebPrimera.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\ApiWebPrimera.csproj",
+        "projectUniqueName": "C:\\Users\\Ilbert Castillo\\Documents\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\ApiWebPrimera.csproj",
         "projectName": "ApiWebPrimera",
-        "projectPath": "D:\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\ApiWebPrimera.csproj",
+        "projectPath": "C:\\Users\\Ilbert Castillo\\Documents\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\ApiWebPrimera.csproj",
         "packagesPath": "C:\\Users\\Ilbert Castillo\\.nuget\\packages\\",
-        "outputPath": "D:\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\obj\\",
+        "outputPath": "C:\\Users\\Ilbert Castillo\\Documents\\ProyectosVS\\ApiWebPrimera\\ApiWebPrimera\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -52,6 +52,10 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[6.0.2, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.3, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",

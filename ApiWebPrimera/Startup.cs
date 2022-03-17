@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,6 +56,7 @@ namespace ApiWebPrimera
             //Asi se configura un tipo concreto, es decir, todos sus inyecciones
             //services.AddTransient<ServicesA>();
 
+
             //services.AddResponseCaching();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
@@ -66,6 +68,11 @@ namespace ApiWebPrimera
 
             //Configurando el automappe en el sistma de inyecion de dependencia
             services.AddAutoMapper(typeof(Startup));
+
+            //Asi configuramos los servicios del identity para trabajarlo
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         //Los middlewar son el conjunto de tuberias que procesan una peticion http
