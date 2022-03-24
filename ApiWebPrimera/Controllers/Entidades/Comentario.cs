@@ -1,4 +1,6 @@
-﻿namespace ApiWebPrimera.Controllers.Entidades
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ApiWebPrimera.Controllers.Entidades
 {
     public class Comentario
     {
@@ -8,5 +10,8 @@
         //Propiedad de navegacion, que me permite optener la data de esa entidad 
         //Relacionada con este comentario, basicamente es un JOIN
         public Libro Libro { get; set; }
+        public string UsuarioId { get; set; }
+        public IdentityUser Usuario { get; set; }
+
     }
 }

@@ -18,6 +18,7 @@ namespace ApiWebPrimera.Controllers
 {
     [ApiController]
     [Route("api/autores")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "EsAdmin")]
     public class AutoresController:ControllerBase
     {
         private readonly ApplicationDbContext context;
@@ -68,7 +69,6 @@ namespace ApiWebPrimera.Controllers
 
         //[HttpGet]
         [HttpGet("listado")] // api/autores/listado
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<List<AutorDevolverDTO>>> Get()
         {
             //throw new NotImplementedException();
@@ -97,6 +97,7 @@ namespace ApiWebPrimera.Controllers
         //}
 
         [HttpGet("primero")] // api/autores/primero
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] //Este decorador nos permite filtrar por autorizacin
         public async Task<ActionResult<AutorDevolverDTO>> PrimerAutor([FromRoute] int miValor)
         {
             var valor = await context.Autores.FirstOrDefaultAsync();

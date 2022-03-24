@@ -15,6 +15,7 @@ namespace ApiWebPrimera
         //Es necesario mantener la referencia al continido base de este metodo
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Es importante tener esta referencia aqui si se rescribe el codigo
             base.OnModelCreating(modelBuilder);
 
             //Definimos que composicion sera la llave primaria de AutorLibro
